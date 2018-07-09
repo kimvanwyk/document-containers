@@ -40,7 +40,7 @@ The container is published on DockerHub here: [https://hub.docker.com/r/kimvanwy
 
 # pandoc-container
 
-Source files for a Docker container providing pandoc, built on top of [my latex container](https://github.com/kimvanwyk/latex-container) to include several latex packages I find useful for various projects.
+Source files for a Docker container providing pandoc, built on top of [my latex container](latex-container) to include several latex packages I find useful for various projects.
 
 ## Usage
 
