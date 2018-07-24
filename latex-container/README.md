@@ -10,7 +10,7 @@ See the *setup.sh* file for a list of included LaTeX packages.
 
 ## Usage
 
-The container's entrypoint is set to **pdflatex** and its working directory */io* is exposed as a volume. Input files should be placed in */io* and the outout files will be placed there as well. As an example, to generate a pdf from **/path/to/test.tex**, run
+The container's entrypoint is set to **pdflatex** and its working directory */io* is exposed as a volume. Input files should be placed in */io* and the output files will be placed there as well. As an example, to generate a pdf from **/path/to/test.tex**, run
 ``` bash
 docker run --rm --name pdflatex -v /path/to:/io kimvanwyk/latex test.tex
 ```
