@@ -22,7 +22,7 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='Run a containerised pandoc instance')
     parser.add_argument('in_path', help='Path to the file to process')
-    parser.add_argument('out_name', help='Name to apply to the putput file. It will be placed in the directory on the input file')
+    parser.add_argument('out_name', help='Name to apply to the output file. It will be placed in the directory of the input file')
     parser.add_argument('additional_args', nargs=argparse.REMAINDER, help='Additional arguments to provide to pandoc')
     args = parser.parse_args()
 
