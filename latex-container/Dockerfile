@@ -14,10 +14,15 @@ RUN apt-get update && apt-get -y install \
 && apt-get autoremove \
 && rm -rf /var/lib/apt/lists/*
 
+WORKDIR /io
+RUN chmod -R ugo+rwx /io
+
+RUN adduser --disabled-password --gecos '' appuser
+USER appuser
+
 ADD setup.sh /tmp/setup.sh
 RUN /tmp/setup.sh
 
-WORKDIR /io
 VOLUME ["/io"]
 
 ENTRYPOINT ["pdflatex"]   
