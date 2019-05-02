@@ -1,0 +1,82 @@
+image: alpine:latest
+
+variables:
+  DOCKER_DRIVER: overlay2
+
+stages:
+  - build
+
+build:
+  stage: build
+  image: docker:stable-git
+  services:
+  - docker:stable-dind
+  script:
+    - setup_docker
+    - build
+  only:
+    - branches
+
+.auto_devops: &auto_devops |    
+
+[[ "$TRACE" ]] && set -x
+  export CI_APPLICATION_REPOSITORY=$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG
+  export CI_APPLICATION_TAG=$CI_COMMIT_SHA
+
+  function setup_docker() {
+    if ! docker info &>/dev/null; then
+      if [ -z "$DOCKER_HOST" -a "$KUBERNETES_PORT" ]; then
+        export DOCKER_HOST='tcp://localhost:2375'
+      fi
+    fi
+  }
+
+  function registry_login() {
+    if [[ -n "$CI_REGISTRY_USER" ]]; then
+      echo "Logging to GitLab Container Registry with CI credentials..."
+      docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+      echo ""
+    fi
+  }
+
+  function build() {
+    registry_login
+      cd latex
+      docker build \
+        --build-arg HTTP_PROXY="$HTTP_PROXY" \
+        --build-arg http_proxy="$http_proxy" \
+        --build-arg HTTPS_PROXY="$HTTPS_PROXY" \
+        --build-arg https_proxy="$https_proxy" \
+        --build-arg FTP_PROXY="$FTP_PROXY" \
+        --build-arg ftp_proxy="$ftp_proxy" \
+        --build-arg NO_PROXY="$NO_PROXY" \
+        --build-arg no_proxy="$no_proxy" \
+        -t "kimvanwyk/latex:$CI_APPLICATION_TAG" .
+    echo "Pushing to GitLab Container Registry..."
+    docker push "kimvanwyk/latex:$CI_APPLICATION_TAG"
+    docker tag "kimvanwyk/latex:$CI_APPLICATION_TAG" "kimvanwyk/latex:latest"
+    docker push "kimvanwyk/latex:latest"
+    echo ""
+
+    cd ../pandoc
+    docker build \
+        --build-arg HTTP_PROXY="$HTTP_PROXY" \
+        --build-arg http_proxy="$http_proxy" \
+        --build-arg HTTPS_PROXY="$HTTPS_PROXY" \
+        --build-arg https_proxy="$https_proxy" \
+        --build-arg FTP_PROXY="$FTP_PROXY" \
+        --build-arg ftp_proxy="$ftp_proxy" \
+        --build-arg NO_PROXY="$NO_PROXY" \
+        --build-arg no_proxy="$no_proxy" \
+        -t "kimvanwyk/latex:$CI_APPLICATION_TAG" .
+    echo "Pushing to GitLab Container Registry..."
+    docker push "kimvanwyk/latex:$CI_APPLICATION_TAG"
+    docker tag "kimvanwyk/latex:$CI_APPLICATION_TAG" "kimvanwyk/latex:latest"
+    docker push "kimvanwyk/latex:latest"
+    echo ""
+
+    cd ../
+}
+
+before_script:
+  - *auto_devops
