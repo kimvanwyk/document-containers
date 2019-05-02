@@ -10,15 +10,12 @@ build:
   stage: build
   image: docker:stable-git
   services:
-  - docker:stable-dind
+    - docker:stable-dind
   script:
     - setup_docker
     - build
-  only:
-    - branches
 
 .auto_devops: &auto_devops |    
-
   set -x
   export CI_APPLICATION_REPOSITORY=$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG
   export CI_APPLICATION_TAG=$CI_COMMIT_SHA
@@ -76,7 +73,7 @@ build:
     echo ""
 
     cd ../
-}
+  }
 
 before_script:
   - *auto_devops
