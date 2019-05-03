@@ -48,7 +48,7 @@ build:
         --build-arg ftp_proxy="$ftp_proxy" \
         --build-arg NO_PROXY="$NO_PROXY" \
         --build-arg no_proxy="$no_proxy" \
-        -t "kimvanwyk/latex:$CI_APPLICATION_TAG" .
+        -t "registry.gitlab.com/kimvanwyk/latex:$CI_APPLICATION_TAG" .
     echo "Pushing to GitLab Container Registry..."
     docker push "registry.gitlab.com/kimvanwyk/latex:$CI_APPLICATION_TAG"
     docker tag "registry.gitlab.com/kimvanwyk/latex:$CI_APPLICATION_TAG" "registry.gitlab.com/kimvanwyk/latex:latest"
@@ -65,7 +65,7 @@ build:
         --build-arg ftp_proxy="$ftp_proxy" \
         --build-arg NO_PROXY="$NO_PROXY" \
         --build-arg no_proxy="$no_proxy" \
-        -t "kimvanwyk/latex:$CI_APPLICATION_TAG" .
+        -t "registry.gitlab.com/kimvanwyk/latex:$CI_APPLICATION_TAG" .
     echo "Pushing to GitLab Container Registry..."
     docker push "registry.gitlab.com/kimvanwyk/latex:$CI_APPLICATION_TAG"
     docker tag "registry.gitlab.com/kimvanwyk/latex:$CI_APPLICATION_TAG" "registry.gitlab.com/kimvanwyk/latex:latest"
