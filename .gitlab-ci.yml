@@ -48,11 +48,11 @@ build:
         --build-arg ftp_proxy="$ftp_proxy" \
         --build-arg NO_PROXY="$NO_PROXY" \
         --build-arg no_proxy="$no_proxy" \
-        -t "registry.gitlab.com/kimvanwyk/latex/$CI_COMMIT_REF_SLUG:$CI_APPLICATION_TAG" .
+        -t "registry.gitlab.com/kimvanwyk/document-containers/latex:$CI_APPLICATION_TAG" .
     echo "Pushing to GitLab Container Registry..."
-    docker push "registry.gitlab.com/kimvanwyk/latex/$CI_COMMIT_REF_SLUG:$CI_APPLICATION_TAG"
-    docker tag "registry.gitlab.com/kimvanwyk/latex/$CI_COMMIT_REF_SLUG:$CI_APPLICATION_TAG" "registry.gitlab.com/kimvanwyk/latex:latest"
-    docker push "registry.gitlab.com/kimvanwyk/latex:latest"
+    docker push "registry.gitlab.com/kimvanwyk/document-containers/latex:$CI_APPLICATION_TAG"
+    docker tag "registry.gitlab.com/kimvanwyk/document-containers/latex:$CI_APPLICATION_TAG" "registry.gitlab.com/kimvanwyk/document-containers/latex:latest"
+    docker push "registry.gitlab.com/kimvanwyk/document-containers/latex:latest"
     echo ""
 
     cd ../pandoc
@@ -65,11 +65,11 @@ build:
         --build-arg ftp_proxy="$ftp_proxy" \
         --build-arg NO_PROXY="$NO_PROXY" \
         --build-arg no_proxy="$no_proxy" \
-        -t "registry.gitlab.com/kimvanwyk/latex:$CI_APPLICATION_TAG" .
+        -t "registry.gitlab.com/kimvanwyk/document-containers/pandoc:$CI_APPLICATION_TAG" .
     echo "Pushing to GitLab Container Registry..."
-    docker push "registry.gitlab.com/kimvanwyk/latex:$CI_APPLICATION_TAG"
-    docker tag "registry.gitlab.com/kimvanwyk/latex:$CI_APPLICATION_TAG" "registry.gitlab.com/kimvanwyk/latex:latest"
-    docker push "registry.gitlab.com/kimvanwyk/latex:latest"
+    docker push "registry.gitlab.com/kimvanwyk/document-containers/pandoc:$CI_APPLICATION_TAG"
+    docker tag "registry.gitlab.com/kimvanwyk/document-containers/pandoc:$CI_APPLICATION_TAG" "registry.gitlab.com/kimvanwyk/document-containers/pandoc:latest"
+    docker push "registry.gitlab.com/kimvanwyk/document-containers/pandoc:latest"
     echo ""
 
     cd ../
