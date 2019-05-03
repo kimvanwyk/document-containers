@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/kimvanwyk/document-containers/pandoc:latest
+FROM registry.gitlab.com/kimvanwyk/document-containers/latex:latest
 
 LABEL name=kimvanwyk/pandoc
 MAINTAINER kimvanwyk
