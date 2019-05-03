@@ -34,6 +34,5 @@ USER appuser
 
 VOLUME ["/io"]
 
-# ENTRYPOINT ["pdflatex"]   
-# CMD ["--version"]
-ENTRYPOINT "/bin/bash"
+ENTRYPOINT ["pdflatex"]   
+CMD ["--version"]
