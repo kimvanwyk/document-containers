@@ -5,6 +5,7 @@ MAINTAINER kimvanwyk
 
 RUN apt-get update && apt-get -y install \
    software-properties-common \
+   python3.6 \
    wget \
    perl \
 && apt-get autoremove \
