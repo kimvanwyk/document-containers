@@ -1,9 +1,9 @@
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 
 LABEL name=kimvanwyk/latex
 MAINTAINER kimvanwyk
 
-RUN apt-get update && apt-get -y install \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install \
    software-properties-common \
    python3.6 \
    wget \
